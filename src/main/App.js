@@ -30,15 +30,15 @@ function App() {
       <ProvedorAutenticacao>
         <Navbar />
         <div className="container">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro-usuarios" element={<CadastroUsuario />} />
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro-usuarios" element={<CadastroUsuario />} />
 
-            <Route path="/home" element={ <RequireAuth> <Home /> </RequireAuth> } />
-            <Route path="/consulta-lancamentos" element={<RequireAuth> <ConsultaLancamentos /> </RequireAuth>} />
-            <Route path="/cadastro-lancamentos" element={<RequireAuth> <CadastroLancamentos /> </RequireAuth>} />
-            <Route path="/cadastro-lancamentos/:id" element={<RequireAuth> <CadastroLancamentos /> </RequireAuth>} />
-          </Routes>
+              <Route path="/home" element={ <RequireAuth> <Home /> </RequireAuth> } />
+              <Route path="/consulta-lancamentos" element={<RequireAuth> <ConsultaLancamentos /> </RequireAuth>} />
+              <Route path="/cadastro-lancamentos" element={<RequireAuth> <CadastroLancamentos /> </RequireAuth>} />
+              <Route path="/cadastro-lancamentos/:id" element={<RequireAuth> <CadastroLancamentos /> </RequireAuth>} />
+            </Routes>
         </div>
       </ProvedorAutenticacao>
     </BrowserRouter>

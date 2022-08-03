@@ -34,7 +34,7 @@ function Login() {
 
     useEffect(() => {
         auth.encerrarSessao();
-      }, []);
+      }, [auth]);
 
     return(
         <div className="row">

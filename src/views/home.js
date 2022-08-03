@@ -15,7 +15,7 @@ function Home () {
         }).catch(error => {
             console.error(error.response)
         })
-      }, []);
+      }, [auth.usuarioAutenticado.id]);
 
     return(
         <div className="jumbotron">

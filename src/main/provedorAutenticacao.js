@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useContext, useMemo } from "react";
+import { useState, useContext } from "react";
 import * as authService from "../app/service/authService";
 
 export const AuthContext = React.createContext()
