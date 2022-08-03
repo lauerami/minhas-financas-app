@@ -1,53 +1,70 @@
 import React from "react";
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
+import ButtonDanger from '../components/buttondanger'
+import { useNavigate } from "react-router-dom";
+import * as usuarioService from "../app/service/usuarioService";
+import { mensagemErro } from "../components/toastr"; 
 
-class Login extends React.Component{
+import { useAuth } from "../main/provedorAutenticacao";
 
-    state = {
-        email: '',
-        senha: ''
-      }
-    
-      entrar = () => {
-        console.log('Email: ', this.state.email)
-        console.log('Senha: ', this.state.senha)
-      }
+import { useState, useEffect } from "react";
 
+function Login() {
 
-    render(){
-        return(
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6" style={{position: 'relative', left: '300px'}}>
-                        <div className="bs-docs-section">
-                            <Card title="Login">
-                                <div className="row">
-                                    <div className="col-lg-12">
-                                        <div class="bs-component">
-                                            <form>
-                                            <fieldset>
-                                                <FormGroup label="Email: *" htmlFor="exampleInputEmail1">
-                                                    <input type="email" value={this.state.email} onChange={e => this.setState({email: e.target.value})} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o Email"></input>    
-                                                </FormGroup>
-                                                <FormGroup label="Senha: *" htmlFor="exampleInputPassword1">
-                                                    <input type="password" value={this.state.senha} onChange={e => this.setState({senha: e.target.value})} className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
-                                                </FormGroup>
-                                                <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                                                <button className="btn btn-danger">Cadastrar</button>
-                                            </fieldset>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Card>
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const auth = useAuth()
+
+    const navigate = useNavigate();
+
+    const Entrar = async () => {
+        const response = await usuarioService.autenticar(
+            {email}.email,
+            {senha}.senha
+        ).then( response => {            
+            auth.iniciarSessao(response.data)
+        }).catch(erro => {
+            mensagemErro(erro.response.data)
+            return false
+        })
+        navigate("/home")
+    }
+
+    useEffect(() => {
+        auth.encerrarSessao();
+      }, []);
+
+    return(
+        <div className="row">
+            <div className="col-md-6" style={{position: 'relative', left: '300px'}}>
+                <div className="bs-docs-section">
+                    <Card title="Login">
+                        <div className="row">
                         </div>
-                    </div>
+                        <div className="row">
+                            <div className="col-lg-12">
+                                <div className="bs-component">
+                                    <fieldset>
+                                        <FormGroup label="Email: *" htmlFor="exampleInputEmail1">
+                                            <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o Email"></input>    
+                                        </FormGroup>
+                                        <FormGroup label="Senha: *" htmlFor="exampleInputPassword1">
+                                            <input type="password" value={senha} onChange={e => setSenha(e.target.value)} className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+                                        </FormGroup>
+                                        <button onClick={Entrar} className="btn btn-success">Entrar</button>
+                                        <ButtonDanger label="Cadastrar" onClick="/cadastro-usuarios"></ButtonDanger>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 
 }
 
-export default Login
+  export default Login
