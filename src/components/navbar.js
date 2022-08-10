@@ -1,11 +1,16 @@
 import React from "react";
 import Navbaritem from "./navbaritem";
+import Navbaritemespecial from "./navbaritemespecial";
 import { useAuth } from "../main/provedorAutenticacao";
 import { NavLink } from "react-router-dom"
 
 function Navbar(){
 
     const auth = useAuth();
+
+    const sair = () => {
+        auth.encerrarSessao();
+    }
 
     return(
         <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
@@ -19,7 +24,7 @@ function Navbar(){
                         <Navbaritem render={auth.isAutenticado} href="/home" label="Home" /> 
                         <Navbaritem render={auth.isAutenticado} href="/cadastro-usuarios" label="Usuários" />
                         <Navbaritem render={auth.isAutenticado} href="/consulta-lancamentos" label="Lançamentos" />
-                        <Navbaritem render={auth.isAutenticado} href="/login" label="Sair" />
+                        <Navbaritemespecial render={auth.isAutenticado} href="/login" label="Sair" exitAction={sair}/>
                     </ul>
                 </div>
             </div>

@@ -19,6 +19,7 @@ import Home from "../views/home"
 import ConsultaLancamentos from "../views/lancamentos/consulta-lancamentos";
 import CadastroLancamentos from "../views/lancamentos/cadastro-lancamentos";
 import Navbar from "../components/navbar"
+import LandingPage from "../views/landingpage";
 
 import { RequireAuth } from "./requiredAuth";
 
@@ -31,6 +32,7 @@ function App() {
         <Navbar />
         <div className="container">
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro-usuarios" element={<CadastroUsuario />} />
 

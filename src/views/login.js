@@ -8,7 +8,7 @@ import { mensagemErro } from "../components/toastr";
 
 import { useAuth } from "../main/provedorAutenticacao";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Login() {
 
@@ -20,7 +20,7 @@ function Login() {
     const navigate = useNavigate();
 
     const Entrar = async () => {
-        const response = await usuarioService.autenticar(
+        await usuarioService.autenticar(
             {email}.email,
             {senha}.senha
         ).then( response => {            
@@ -32,13 +32,9 @@ function Login() {
         navigate("/home")
     }
 
-    useEffect(() => {
-        auth.encerrarSessao();
-      }, [auth]);
-
     return(
         <div className="row">
-            <div className="col-md-6" style={{position: 'relative', left: '300px'}}>
+            <div className="col-md-6 offset-md-3">
                 <div className="bs-docs-section">
                     <Card title="Login">
                         <div className="row">

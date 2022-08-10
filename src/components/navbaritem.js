@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom"
 
 function Navbaritem( {render, ...props} ){
-    
+
     if(render){
         return(
             <li>
